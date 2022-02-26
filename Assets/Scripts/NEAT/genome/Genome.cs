@@ -6,6 +6,8 @@ public class Genome
 {
     private Neat neat;
 
+    private Dictionary<int, NodeGene> nodeDictionary;
+    private Dictionary<int, ConnectionGene> connectionDictionary;
     private List<ConnectionGene> connection_list;
     private List<NodeGene> node_list;
 
@@ -14,6 +16,8 @@ public class Genome
         this.neat = neat;
         this.connection_list = new List<ConnectionGene>();
         this.node_list = new List<NodeGene>();
+        this.connectionDictionary = new Dictionary<int, ConnectionGene>();
+        this.nodeDictionary = new Dictionary<int, NodeGene>();
 
     }
 
@@ -67,7 +71,7 @@ public class Genome
 
             if (node1.getLayer() != node2.getLayer())
             {
-                if (node1.getLayer() <= node2.getLayer())
+                if (node1.getLayer() < node2.getLayer())
                 {
                     connection = neat.makeConnection(node1, node2);
                 }
@@ -75,7 +79,7 @@ public class Genome
                 {
                     connection = neat.makeConnection(node2, node1);
                 }
-                if (!this.connection_list.Contains(connection))
+                if (!this.connectionDictionary.ContainsKey(connection.getKey()))
                 {
                     connection.setWeight(getRandomWeight(-1, 1));
                     addConnection(connection);
@@ -98,10 +102,19 @@ public class Genome
             NodeGene end = connection.getTo();
             NodeGene middle = neat.getMiddleNode(connection);
 
+            if (nodeDictionary.ContainsKey(middle.getInnovation()))
+            {
+                middle = nodeDictionary[middle.getInnovation()];
+            }
+
             ConnectionGene connection1 = neat.makeConnection(start, middle);
             ConnectionGene connection2 = neat.makeConnection(middle, end);
 
-            addNode(middle);
+            if (!nodeDictionary.ContainsKey(middle.getInnovation()))
+            {
+                addNode(middle);
+            }
+            
             addConnection(connection1);
             addConnection(connection2);
         }
@@ -136,9 +149,10 @@ public class Genome
 
     public void addNode(NodeGene n)
     {
-        if (!this.node_list.Contains(n))
+        if (!this.nodeDictionary.ContainsKey(n.getInnovation()))
         {
             this.node_list.Add(n);
+            this.nodeDictionary.Add(n.getInnovation(), n);
         }
     }
 
@@ -162,6 +176,7 @@ public class Genome
                 {
                     c.getTo().addInput(c);
                     this.connection_list.Insert(i, c);
+                    this.connectionDictionary.Add(c.getKey(), c);
                     break;
                 }
             }

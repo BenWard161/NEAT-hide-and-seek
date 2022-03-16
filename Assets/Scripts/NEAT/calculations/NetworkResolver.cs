@@ -32,8 +32,8 @@ public class NetworkResolver
         Debug.Log(input_nodes.Count + " input nodes and " + input.Length + " inputs");
         foreach (NodeGene n in input_nodes)
         {
-            Debug.Log("innov num = " + n.getInnovation());
-            Debug.Log("layer = " + n.getLayer());
+            //Debug.Log("innov num = " + n.getInnovation());
+            //Debug.Log("layer = " + n.getLayer());
         }
 
         foreach (NodeGene n in output_nodes)

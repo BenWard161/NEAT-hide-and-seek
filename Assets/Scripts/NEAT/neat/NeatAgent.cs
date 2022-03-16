@@ -23,7 +23,7 @@ public class NeatAgent
 
     public void getConnectionsSize()
     {
-        // Debug.Log("network has " + genes.getConnectionsSize() + " connections");
+        Debug.Log("network has " + genes.getConnectionsSize() + " connections");
     }
 
     public double[] getActions(double[] input)

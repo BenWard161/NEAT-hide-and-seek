@@ -220,7 +220,7 @@ public class Species
         foreach (NodeGene node in childNodes)
         {
             child.addNode(node);
-            Debug.Log(node.getLayer());
+            //Debug.Log(node.getLayer());
         }
         foreach (ConnectionGene connection in childConnections)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Species
 {
-    private ArrayList members = new ArrayList();
+    private List<NeatAgent> members = new List<NeatAgent>();
     private NeatAgent template_member;
     private Neat neat;
     private double total_score = 0;
@@ -44,22 +44,20 @@ public class Species
 
     public NeatAgent produceNewChild()
     {
-        NeatAgent parent1 = (NeatAgent)this.members[0];// getRandomParent();
-        NeatAgent parent2 = (NeatAgent)this.members[1];// getRandomParent();
+        NeatAgent parent1 = this.members[0];
+        NeatAgent parent2 = this.members[0];
 
-        // Debug.Log("parents selected");
-
-        //bool parents_valid = false;
-        //while (!parents_valid)
-        //{
-        //    if (parent1 != parent2)
-        //    {
-        //        parents_valid = true;
-        //        break;
-        //    }
-        //    parent1 = getRandomParent();
-        //    parent2 = getRandomParent();
-        //}
+        bool parents_valid = false;
+        while (!parents_valid)
+        {
+            parent1 = getRandomParent();
+            parent2 = getRandomParent();
+            if (parent1 != parent2)
+            {
+                parents_valid = true;
+                break;
+            }
+        }
 
         if (parent1 == parent2)
         {
@@ -170,8 +168,8 @@ public class Species
 
         while (index1 < parent1_size && index2 < parent2_size)
         {
-            ConnectionGene c1 = (ConnectionGene)connections1[index1];
-            ConnectionGene c2 = (ConnectionGene)connections2[index2];
+            ConnectionGene c1 = connections1[index1];
+            ConnectionGene c2 = connections2[index2];
 
             int i1 = c1.getInnovation();
             int i2 = c2.getInnovation();
@@ -247,7 +245,7 @@ public class Species
 
     public NeatAgent getEliteMember()
     {
-        return (NeatAgent)members[0];
+        return members[0];
     }
 
     public void clear()
@@ -268,7 +266,7 @@ public class Species
         }
     }
 
-    public ArrayList getMembers()
+    public List<NeatAgent> getMembers()
     {
         return this.members;
     }

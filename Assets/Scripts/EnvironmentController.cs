@@ -44,8 +44,7 @@ public class EnvironmentController : MonoBehaviour
         this.population = new PopulationController(seekerAgents);
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         this.n_steps += 1;
         if (this.n_steps > 1000)

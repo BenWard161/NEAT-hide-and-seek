@@ -80,4 +80,10 @@ public class ConnectionGene : Gene
         this.middleInov = middleInov;
     }
 
+    public void setRandomWeight(double min, double max)
+    {
+        System.Random random = new System.Random();
+        this.weight = random.NextDouble() * (max - min) + min;
+    }
+
 }

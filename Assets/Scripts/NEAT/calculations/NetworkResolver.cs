@@ -12,17 +12,18 @@ public class NetworkResolver
     {
         List<NodeGene> node_list = g.getNodes();
 
-        foreach(NodeGene n in node_list){
-
-
-            if(n.getLayer() == -1.0)
+        for (int i = 0; i < node_list.Count; i++)
+        {
+            if (node_list[i].getLayer() == -1)
             {
-                input_nodes.Add(n);
+                input_nodes.Add(node_list[i]);
+                continue;
             }
-            else if(n.getLayer() == 2.0)
+            else if (node_list[i].getLayer() == 2)
             {
-                output_nodes.Add(n);
+                output_nodes.Add(node_list[i]);
             }
+            node_list[i].logInputWeights();
         }
     }
 

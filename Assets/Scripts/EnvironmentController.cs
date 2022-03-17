@@ -48,7 +48,7 @@ public class EnvironmentController : MonoBehaviour
     void Update()
     {
         this.n_steps += 1;
-        if (this.n_steps > 100)
+        if (this.n_steps > 1000)
         {
             this.neat.step();
             this.population.setNewBehaviours(neat.getAgents());

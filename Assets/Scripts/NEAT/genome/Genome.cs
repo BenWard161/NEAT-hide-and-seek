@@ -21,12 +21,12 @@ public class Genome
 
     }
 
-    public Genome(Neat neat, List<ConnectionGene> connections, List<NodeGene> nodes)
-    {
-        this.neat = neat;
-        this.connection_list = connections;
-        this.node_list = nodes;
-    }
+    //public Genome(Neat neat, List<ConnectionGene> connections, List<NodeGene> nodes)
+    //{
+    //    this.neat = neat;
+    //    this.connection_list = connections;
+    //    this.node_list = nodes;
+    //}
 
     public void mutate()
     {
@@ -81,7 +81,7 @@ public class Genome
                 }
                 if (!this.connectionDictionary.ContainsKey(connection.getKey()))
                 {
-                    connection.setWeight(getRandomWeight(-1, 1));
+                    connection.setRandomWeight(-1 * neat.getWeightMult(), 1 * neat.getWeightMult());
                     addConnection(connection);
                     return;
                 }
@@ -132,7 +132,7 @@ public class Genome
     {
         System.Random random = new System.Random();
         int rand_index = random.Next(connection_list.Count);
-        connection_list[rand_index].setWeight(getRandomWeight(-1, 1) * neat.getWeightMult());
+        connection_list[rand_index].setRandomWeight(-1 * neat.getWeightMult(), 1 * neat.getWeightMult());
     }
 
     public void mutate_toggle_enabled()
@@ -163,20 +163,29 @@ public class Genome
 
     public void addConnection(ConnectionGene c)
     {
-        if (c.getFrom().getLayer() == c.getTo().getLayer())
-        {
-            Debug.LogError("infinite network loop");
-        }
+        //if (c.getFrom().getLayer() == c.getTo().getLayer())
+        //{
+        //    Debug.LogError("infinite network loop");
+        //}
 
-        if (!this.connection_list.Contains(c))
+        if (!this.connection_list.Contains(c) && this.nodeDictionary.ContainsKey(c.getTo().getInnovation()))
         {
+            this.connectionDictionary.Add(c.getKey(), c);
+
+            NodeGene endNode;
+            if(!this.nodeDictionary.TryGetValue(c.getTo().getInnovation(), out endNode))
+            {
+                nodeDictionary.Add(c.getTo().getInnovation(), c.getTo());
+                endNode = c.getTo();
+            }
+            endNode.addInput(c);
+
             for (int i = 0; i < connection_list.Count; i++)
             {
                 if (c.getInnovation() < connection_list[i].getInnovation())
                 {
-                    c.getTo().addInput(c);
+                    Debug.Log(this.nodeDictionary[c.getTo().getInnovation()].inputs.Count);
                     this.connection_list.Insert(i, c);
-                    this.connectionDictionary.Add(c.getKey(), c);
                     break;
                 }
             }

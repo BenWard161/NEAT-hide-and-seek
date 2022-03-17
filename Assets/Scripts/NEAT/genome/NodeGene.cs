@@ -5,7 +5,7 @@ using UnityEngine;
 public class NodeGene : Gene
 {
     private double layer;
-    public ArrayList inputs = new ArrayList();
+    public List<ConnectionGene> inputs = new List<ConnectionGene>();
     private double output;
 
     public NodeGene(int innovation) : base(innovation)
@@ -94,5 +94,13 @@ public class NodeGene : Gene
             return -1;
         }
         return 0;
+    }
+
+    public void logInputWeights()
+    {
+        for (int i = 0; i < inputs.Count; i++)
+        {
+            Debug.Log("node " + innovation_number + " has an input connection with a weight of " + inputs[i].getWeight());
+        }
     }
 }

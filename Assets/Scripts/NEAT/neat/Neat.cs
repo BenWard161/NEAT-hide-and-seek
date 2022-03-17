@@ -205,6 +205,7 @@ public class Neat
     public ConnectionGene makeConnection(NodeGene n1, NodeGene n2)
     {
         ConnectionGene connect = new ConnectionGene(n1, n2);
+        connect.setRandomWeight(-1 * weight_mult, 1 * weight_mult);
         int key = connect.getKey();
 
         ConnectionGene con;

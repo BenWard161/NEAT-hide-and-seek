@@ -46,7 +46,9 @@ public class NodeGene : Gene
             Activations activate = new Activations();
             return activate.sigmoid(this.output);
         }
-        this.output = 0.0;
+
+        //this.output = 0.0;
+        double result = 0.0;
         bool active = false;
 
         foreach(ConnectionGene c in inputs)
@@ -54,7 +56,7 @@ public class NodeGene : Gene
             double prev = c.getFrom().getOutput();
             if (c.getEnabled())
             {
-                this.output += c.getWeight() * c.getFrom().getOutput();
+                result += c.getWeight() * c.getFrom().getOutput();
                 active = true;
             }
             
@@ -64,7 +66,7 @@ public class NodeGene : Gene
         {
             Activations activate = new Activations();
             // Debug.Log("output is " + activate.sigmoid(this.output));
-            return activate.sigmoid(this.output);
+            return activate.sigmoid(result);
         }
         return 0;
     }

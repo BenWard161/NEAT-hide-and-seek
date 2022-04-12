@@ -37,11 +37,6 @@ public class NetworkResolver
             //Debug.Log("layer = " + n.getLayer());
         }
 
-        foreach (NodeGene n in output_nodes)
-        {
-            Debug.Log("output has " + n.inputs.Count + " input connections");
-        }
-
         for (int i = 0; i < input_nodes.Count - 1; i++)
         {
             input_nodes[i].setOutput(input[i]);
@@ -50,7 +45,6 @@ public class NetworkResolver
         double[] output = new double[output_nodes.Count];
         for (int i = 0; i < output_nodes.Count; i++)
         {
-            double debugDouble = output_nodes[i].getOutput();
             output[i] = output_nodes[i].getOutput();
             
         }

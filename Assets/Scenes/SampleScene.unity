@@ -349,10 +349,11 @@ MonoBehaviour:
   seekerTag: Seeker
   hiderTag: Hider
   inputSize: 2
-  outputSize: 3
-  n_agents: 1
+  outputSize: 2
+  n_agents: 10
   n_generations: 0
   biggestNet: 0
+  maxSteps: 300
   envOffset: {x: 15, y: 0, z: 0}
-  n_steps: 0
+  n_steps: 400
   startPositions: []

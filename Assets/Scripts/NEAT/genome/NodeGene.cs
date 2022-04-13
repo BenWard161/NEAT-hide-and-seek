@@ -100,9 +100,9 @@ public class NodeGene : Gene
 
     public void logInputWeights()
     {
-        for (int i = 0; i < inputs.Count; i++)
-        {
-            Debug.Log("node " + innovation_number + " has an input connection with a weight of " + inputs[i].getWeight());
-        }
+        //for (int i = 0; i < inputs.Count; i++)
+        //{
+        //    Debug.Log("node " + innovation_number + " has an input connection with a weight of " + inputs[i].getWeight());
+        //}
     }
 }

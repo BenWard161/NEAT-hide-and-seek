@@ -31,16 +31,18 @@ public class Neat
     private Dictionary<int, NodeGene> all_nodes = new Dictionary<int, NodeGene>();
     private List<Species> species = new List<Species>();
     private NeatAgent[] agents;
+    private string behaviourName;
 
     public int max_agents;
     private int input_size;
     private int output_size;
     
-    public Neat(int n_agents, int input_size, int output_size)
+    public Neat(int n_agents, int input_size, int output_size, string behaviourName)
     {
         this.max_agents = n_agents;
         this.input_size = input_size;
         this.output_size = output_size;
+        this.behaviourName = behaviourName;
 
         this.agents = new NeatAgent[max_agents];
 
@@ -82,10 +84,23 @@ public class Neat
     public void step()
     {
         sortParents();
+        logScore();
         killUnfitAgents();
         //this.agents = new NeatAgent[max_agents];
         makeNewPopulation();
 
+    }
+
+    private void logScore()
+    {
+        double avgScore = 0;
+        for (int i = 0; i < agents.Length; i++)
+        {
+            Debug.Log(behaviourName + " Agent " + i + ": " + agents[i].getScore());
+            avgScore += agents[i].getScore();
+        }
+        avgScore /= agents.Length;
+        Debug.Log(behaviourName + "average score is: " + avgScore);
     }
 
     private void sortParents()

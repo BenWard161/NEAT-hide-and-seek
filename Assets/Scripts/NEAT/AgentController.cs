@@ -27,7 +27,7 @@ public class AgentController
     public void takeActions()
     {
         double[] outputs = this.brain.getActions(CollectObservations());
-        Debug.Log("outputs are " + outputs[0] + " " + outputs[1]);// + " " + outputs[2]);
+        //Debug.Log("outputs are " + outputs[0] + " " + outputs[1]);// + " " + outputs[2]);
 
         Vector3 controlSignal = Vector3.zero;
         controlSignal.x = (float)outputs[0];

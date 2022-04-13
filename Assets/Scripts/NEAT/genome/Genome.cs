@@ -168,7 +168,7 @@ public class Genome
         //    Debug.LogError("infinite network loop");
         //}
 
-        if (!this.connection_list.Contains(c) && this.nodeDictionary.ContainsKey(c.getTo().getInnovation()))
+        if (!this.connectionDictionary.ContainsKey(c.getKey()) && this.nodeDictionary.ContainsKey(c.getTo().getInnovation()))
         {
             this.connectionDictionary.Add(c.getKey(), c);
 

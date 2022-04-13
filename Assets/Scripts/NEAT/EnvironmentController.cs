@@ -10,9 +10,11 @@ public class EnvironmentController : MonoBehaviour
 
     public int inputSize = 2;
     public int outputSize = 3;
-    public int n_agents = 1000;
+    public int n_agents = 400;
     public int n_generations = 0;
     public int biggestNet = 0;
+
+    [SerializeField] private int maxSteps;
 
     public Vector3 envOffset = new Vector3(10, 0, 0);
 
@@ -25,7 +27,7 @@ public class EnvironmentController : MonoBehaviour
     void Start()
     {
         this.n_steps = 0;
-        this.neat = new Neat(n_agents, inputSize, outputSize);
+        this.neat = new Neat(n_agents, inputSize, outputSize, "SeekerAgent");
         NeatAgent[] neatAgents = neat.getAgents();
         AgentController[] seekerAgents = new AgentController[n_agents];
         this.startPositions = new Transform[n_agents];
@@ -47,7 +49,7 @@ public class EnvironmentController : MonoBehaviour
     void FixedUpdate()
     {
         this.n_steps += 1;
-        if (this.n_steps > 1000)
+        if (this.n_steps > maxSteps)
         {
             this.neat.step();
             this.population.setNewBehaviours(neat.getAgents());

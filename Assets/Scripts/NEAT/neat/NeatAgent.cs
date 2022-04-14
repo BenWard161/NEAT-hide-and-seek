@@ -33,6 +33,11 @@ public class NeatAgent
 
     public void addReward(double reward)
     {
+        if (this.score > 0 && reward > 10)
+        {
+            this.score += reward;
+            this.score /= 2.0;
+        }
         this.score += reward;
     }
 

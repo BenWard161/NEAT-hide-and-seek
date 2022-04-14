@@ -40,7 +40,7 @@ public class EnvironmentController : MonoBehaviour
             startPositions[i] = seeker.transform;
             GameObject hider = getChildWithTag(env, hiderTag);
 
-            seekerAgents[i] = new AgentController(seeker, ((NeatAgent)neatAgents[i]), hider);
+            seekerAgents[i] = new AgentController(seeker, (neatAgents[i]), hider);
         }
 
         this.population = new PopulationController(seekerAgents);

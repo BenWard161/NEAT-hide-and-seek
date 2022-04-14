@@ -20,7 +20,7 @@ public class RewardManager
         //if there is something blocking the line of sight between the 2 agents
         if (Physics.Linecast(agent1.position, agent2.position))
         {
-            //reward += 0.01f;
+            reward += 0.01f;
         }
         else
         {

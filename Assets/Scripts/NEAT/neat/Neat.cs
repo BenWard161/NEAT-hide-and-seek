@@ -88,6 +88,7 @@ public class Neat
         killUnfitAgents();
         //this.agents = new NeatAgent[max_agents];
         makeNewPopulation();
+        this.bestAgent.setScore(0);
 
     }
 
@@ -96,7 +97,7 @@ public class Neat
         double avgScore = 0;
         for (int i = 0; i < agents.Length; i++)
         {
-            Debug.Log(behaviourName + " Agent " + i + ": " + agents[i].getScore());
+            //Debug.Log(behaviourName + " Agent " + i + ": " + agents[i].getScore());
             avgScore += agents[i].getScore();
         }
         avgScore /= agents.Length;
@@ -129,6 +130,7 @@ public class Neat
                 species.Add(s);
             }
         }
+        Debug.Log(behaviourName + " best agent: " + this.bestAgent.getScore());
 
         // remove non viable species
         List<Species> tempList = new List<Species>(species);
@@ -164,6 +166,7 @@ public class Neat
             for (int i = 0; i < species.Count; i++)
             {
                 agents[i] = species[i].getEliteMember();
+                agents[i].setScore(0);
             }
         }
 
@@ -186,7 +189,9 @@ public class Neat
             NeatAgent new_agent = species[i % (species.Count)].produceNewChild();
             
             agents[i] = new_agent;
+            agents[i].setScore(0);
         }
+
 
         foreach (Species s in species)
         {

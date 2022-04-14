@@ -57,9 +57,12 @@ public class AgentController
         reward += 0.01 * (toTarget - newToTarget);
         this.toTarget = newToTarget;
 
-        if (toTarget <= 1)
+        if (toTarget <= 1.5)
         {
             reward += 10;
+            this.agentObject.transform.position = this.startPosition;
+            
+
         }
 
         /*
@@ -77,6 +80,11 @@ public class AgentController
         this.agentObject.transform.position = this.startPosition;
         this.agentObject.transform.rotation = this.startRotation;
         newBrain.getConnectionsSize();
+    }
+
+    public void resetAgent()
+    {
+        this.agentObject.transform.position = this.startPosition;
     }
 
     public int getNetworkSize()

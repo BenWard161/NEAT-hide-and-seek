@@ -16,7 +16,7 @@ public class EnvironmentController : MonoBehaviour
 
     [SerializeField] private int maxSteps;
 
-    public Vector3 envOffset = new Vector3(10, 0, 0);
+    public Vector3 envOffset = new Vector3(4, 0, 0);
 
     public Neat neat;
     public PopulationController population;
@@ -39,8 +39,9 @@ public class EnvironmentController : MonoBehaviour
             GameObject seeker = getChildWithTag(env, seekerTag);
             startPositions[i] = seeker.transform;
             GameObject hider = getChildWithTag(env, hiderTag);
+            bool maximise = true;
 
-            seekerAgents[i] = new AgentController(seeker, (neatAgents[i]), hider);
+            seekerAgents[i] = new AgentController(seeker, (neatAgents[i]), hider, maximise);
         }
 
         this.population = new PopulationController(seekerAgents);

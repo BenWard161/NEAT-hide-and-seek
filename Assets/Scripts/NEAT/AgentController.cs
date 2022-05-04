@@ -11,9 +11,10 @@ public class AgentController
     public double toTarget;
     public Vector3 startPosition;
     public Quaternion startRotation;
+    private double reward;
+    private bool maximise;
 
-
-    public AgentController(GameObject g, NeatAgent b, GameObject t)
+    public AgentController(GameObject g, NeatAgent b, GameObject t, bool max)
     {
         this.agentObject = g;
         this.rBody = g.GetComponent<Rigidbody>();
@@ -21,9 +22,11 @@ public class AgentController
         this.target = t;
         this.startPosition = g.transform.position;
         this.startRotation = g.transform.rotation;
+        this.reward = 0d;
+        this.maximise = max;
     }
 
-    public float forceMultiplier = 100;
+    public float forceMultiplier = 50;
     public void takeActions()
     {
         double[] outputs = this.brain.getActions(CollectObservations());
@@ -52,15 +55,14 @@ public class AgentController
 
     public void addReward()
     {
-        double reward = 0;
         double newToTarget = Vector3.Distance(agentObject.transform.position, target.transform.position);
         reward += 0.01 * (toTarget - newToTarget);
         this.toTarget = newToTarget;
 
-        if (toTarget <= 1.5)
+        if (toTarget <= 1)
         {
             reward += 10;
-            this.agentObject.transform.position = this.startPosition;
+            resetAgent();
             
 
         }
@@ -71,7 +73,7 @@ public class AgentController
          * add reward when agent can see target
          */
 
-        brain.addReward(reward);
+        
     }
 
     public void setBrain(NeatAgent newBrain)
@@ -80,11 +82,22 @@ public class AgentController
         this.agentObject.transform.position = this.startPosition;
         this.agentObject.transform.rotation = this.startRotation;
         newBrain.getConnectionsSize();
+        this.reward = 0d;
     }
 
     public void resetAgent()
     {
         this.agentObject.transform.position = this.startPosition;
+        this.agentObject.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+        if (maximise)
+        {
+            brain.addReward(reward);
+        }
+        else
+        {
+            brain.addReward(-reward);
+        }
+        this.reward = 0d;
     }
 
     public int getNetworkSize()

@@ -353,7 +353,7 @@ MonoBehaviour:
   n_agents: 100
   n_generations: 0
   biggestNet: 0
-  maxSteps: 300
+  maxSteps: 100
   envOffset: {x: 15, y: 0, z: 0}
   n_steps: 400
   startPositions: []

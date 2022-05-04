@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AgentController
 {
@@ -24,6 +25,7 @@ public class AgentController
         this.startRotation = g.transform.rotation;
         this.reward = 0d;
         this.maximise = max;
+        double startCoords = 4.0;
     }
 
     public float forceMultiplier = 50;
@@ -80,6 +82,29 @@ public class AgentController
     {
         this.brain = newBrain;
         this.agentObject.transform.position = this.startPosition;
+
+        Vector3 pos = new Vector3(0, 0.5f, 0);
+        System.Random rand = new System.Random();
+
+        if (rand.NextDouble() > 0.5)
+        {
+            pos.x = 4f;
+        }
+        else
+        {
+            pos.x = -4f;
+        }
+        if (rand.NextDouble() > 0.5)
+        {
+            pos.z = 4f;
+        }
+        else
+        {
+            pos.z = -4f;
+        }
+
+        agentObject.transform.localPosition = pos;
+
         this.agentObject.transform.rotation = this.startRotation;
         newBrain.getConnectionsSize();
         this.reward = 0d;
